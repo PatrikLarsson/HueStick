@@ -60,3 +60,14 @@ int StickDir::getDistance()
     int hyp = round(sqrt(sq(x) + sq(y)));
     return min(hyp, _maxDistance);
 }
+
+double StickDir::getAngle()
+{
+    int x = this->getX();
+    int y = this->getY();
+    double radians = atan2(x, y);
+    
+    // Now we have a value between -π and π, which we convert to a decimal between 0 and 1.
+    double degreeVal = ((radians / PI) + 1) / 2;
+    return degreeVal;
+}

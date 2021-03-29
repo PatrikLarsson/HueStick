@@ -18,8 +18,9 @@ void setup() {
 void loop() {
   // Output the current state of the stick for debugging purposes.
   display.write(0, 0, "distance: " + String(stickDir.getDistance()) + "     ");
-  display.write(0, 1, "x: " + String(stickDir.getX()) + "  ");
-  display.write(7, 1, "y: " + String(stickDir.getY()) + "  ");
+  display.write(0, 1, "angle: " + String(stickDir.getAngle()));
+  //display.write(0, 1, "x: " + String(stickDir.getX()) + "  ");
+  //display.write(7, 1, "y: " + String(stickDir.getY()) + "  ");
 
   delay(20);
 }

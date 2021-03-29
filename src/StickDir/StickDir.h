@@ -12,6 +12,7 @@ class StickDir
         int getY();
         int getSwitchState();
         int getDistance();
+        double getAngle();
 };
 
 #endif

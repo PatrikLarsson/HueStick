@@ -19,8 +19,3 @@ void RGBLed::setRGB(byte red, byte green, byte blue)
     analogWrite(_GREEN, green);
     analogWrite(_BLUE, blue);
 }
-
-void RGBLed::setHSL(double h, double s, double l) 
-{
-
-}

@@ -11,8 +11,10 @@ class StickDir
         int getX();
         int getY();
         int getSwitchState();
-        int getDistance();
+        double getDistance();
         double getAngle();
+    private:
+        double convertToRatio(double val, int maxVal, int jitter);
 };
 
 #endif

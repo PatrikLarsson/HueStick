@@ -48,8 +48,8 @@ int StickDir::getSwitchState()
     return digitalRead(_SW_pin);
 }
 
-// Gets the distance from the center (origin).
-int StickDir::getDistance()
+// Gets the distance from the center (origin), as a ratio between 0 and 1.
+double StickDir::getDistance()
 {
     double x = abs(
         this->getX()
@@ -58,9 +58,13 @@ int StickDir::getDistance()
         this->getY()
     );
     int hyp = round(sqrt(sq(x) + sq(y)));
-    return min(hyp, _maxDistance);
+
+    // We need to convert this to a decimal between 0 and 1. We also apply
+    // a jitter of 20 to avoid minor movements near the center.
+    return this->convertToRatio(min(hyp, _maxDistance), 500, 10);
 }
 
+// Gets the angle of the stick, as a ration between 0 and 1.
 double StickDir::getAngle()
 {
     int x = this->getX();
@@ -70,4 +74,17 @@ double StickDir::getAngle()
     // Now we have a value between -π and π, which we convert to a decimal between 0 and 1.
     double degreeVal = ((radians / PI) + 1) / 2;
     return degreeVal;
+}
+
+double StickDir::convertToRatio(double val, int maxVal, int jitter)
+{
+    // Convenience function to turn an incoming value to a value between 0 and 1, with a possible jitter.
+    // val: The value to convert
+    // maxVal: The maximum value we can receive
+    // jitter: A tolerance (from 0) which will simply return 0 if not exceeded
+
+    maxVal = maxVal - jitter;
+    double actualVal = max(val - jitter, 0);
+
+    return actualVal / maxVal;
 }
